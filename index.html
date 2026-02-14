@@ -1,229 +1,186 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Happy Valentine · Surat & 8 Foto Berjalan</title>
-  <!-- Font & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      min-height:100vh;
-      background:linear-gradient(145deg,#ffd9e6 0%,#ffb6c1 100%);
-      font-family:'Playfair Display',serif;
-      display:flex; align-items:center; justify-content:center;
-      padding:16px; position:relative; overflow-x:hidden;
-    }
-    /* Latar hati berterbangan */
-    .floating-hearts {
-      position:fixed; top:0; left:0; width:100%; height:100%;
-      pointer-events:none; z-index:0;
-    }
-    .heart {
-      position:absolute; color:rgba(255,80,120,0.3); font-size:24px;
-      animation:fly 15s linear infinite;
-    }
-    @keyframes fly {
-      0% { transform:translateY(100vh) scale(0.5); opacity:0; }
-      50% { opacity:0.8; }
-      100% { transform:translateY(-10vh) scale(1.2); opacity:0; }
-    }
-    /* Kartu utama */
-    .card {
-      position:relative; z-index:20; width:100%; max-width:1100px;
-      background:rgba(255,250,245,0.7); backdrop-filter:blur(10px);
-      border-radius:60px 60px 40px 40px; padding:40px 30px 50px;
-      box-shadow:0 20px 40px rgba(190,70,100,0.4), 0 0 0 5px #fff2f5, 0 0 0 12px rgba(255,200,200,0.5);
-      border:2px solid #ffe2ec;
-    }
-    /* AMPLOP */
-    .envelope {
-      display:flex; flex-direction:column; align-items:center; justify-content:center;
-      min-height:500px; cursor:pointer;
-      -webkit-tap-highlight-color:transparent;
-    }
-    .envelope-icon {
-      font-size:180px; color:#d45f7a; filter:drop-shadow(12px 18px 0 #b04b62);
-      animation:float 2.5s infinite ease-in-out;
-    }
-    @keyframes float {
-      0%,100%{transform:translateY(0);}
-      50%{transform:translateY(-15px);}
-    }
-    .click-text {
-      font-family:'Dancing Script',cursive; font-size:3.2rem; font-weight:700;
-      color:#ad3f5c; background:#fff2f5; padding:12px 40px; border-radius:60px;
-      border:4px solid white; box-shadow:0 12px 0 #c1647d; margin-top:20px;
-    }
-    /* GALERI (awalnya disembunyikan) */
-    .gallery { display:none; }
-    .gallery-title {
-      font-family:'Dancing Script',cursive; font-size:4rem; text-align:center;
-      color:#802d48; text-shadow:4px 4px 0 #fecfdb; margin-bottom:10px;
-    }
-    .gallery-sub {
-      text-align:center; font-size:1.5rem; color:#a54d68; background:rgba(255,255,255,0.6);
-      padding:8px 30px; border-radius:60px; display:inline-block; margin:0 auto 40px;
-      border:3px solid #ffd5e2;
-    }
-    .photo-grid {
-      display:grid; grid-template-columns:repeat(4,1fr); gap:25px; margin:30px 0 50px;
-    }
-    .photo-frame {
-      background:#fffdf7; padding:12px 12px 25px; border-radius:20px 20px 12px 12px;
-      box-shadow:0 12px 0 #ca9b7a, 0 15px 20px rgba(130,60,30,0.25);
-      border:3px solid #ffe5c4; transform:rotate(var(--rot,0deg));
-      animation:walk 3s ease-in-out infinite alternate;
-    }
-    .photo-frame:nth-child(1) { animation-duration:3.2s; animation-delay:0s; --walk-distance:25px; }
-    .photo-frame:nth-child(2) { animation-duration:2.8s; animation-delay:0.3s; --walk-distance:30px; }
-    .photo-frame:nth-child(3) { animation-duration:3.5s; animation-delay:0.1s; --walk-distance:20px; }
-    .photo-frame:nth-child(4) { animation-duration:3.0s; animation-delay:0.7s; --walk-distance:28px; }
-    .photo-frame:nth-child(5) { animation-duration:2.5s; animation-delay:0.2s; --walk-distance:22px; }
-    .photo-frame:nth-child(6) { animation-duration:3.3s; animation-delay:0.5s; --walk-distance:32px; }
-    .photo-frame:nth-child(7) { animation-duration:2.9s; animation-delay:0.4s; --walk-distance:26px; }
-    .photo-frame:nth-child(8) { animation-duration:3.1s; animation-delay:0.9s; --walk-distance:24px; }
-    @keyframes walk {
-      0% { transform:translateX(calc(-1 * var(--walk-distance,15px))) rotate(var(--rot,0deg)); }
-      100% { transform:translateX(var(--walk-distance,15px)) rotate(var(--rot,0deg)); }
-    }
-    .photo-frame:hover {
-      transform:scale(1.03) rotate(0.5deg);
-      box-shadow:0 16px 0 #b37b58, 0 20px 28px #b16262;
-      animation-play-state:paused;
-    }
-    .photo-frame img {
-      width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:12px;
-      border:4px solid #fcd7b0; background:#dbbd9c;
-    }
-    .photo-caption {
-      font-family:'Playfair Display',serif; font-size:1rem; color:#7a3a4a;
-      text-align:center; margin-top:12px; font-weight:600; letter-spacing:1px;
-    }
-    .love-letter {
-      background:rgba(255,240,235,0.8); backdrop-filter:blur(4px);
-      border-radius:80px 80px 30px 30px; padding:45px 40px;
-      border:5px solid #fff2e0; box-shadow:inset 0 0 30px #ffcfda, 0 18px 0 #b3866b;
-      max-width:800px; margin:30px auto 0; text-align:center;
-    }
-    .love-greeting {
-      font-family:'Dancing Script',cursive; font-size:3rem; color:#9e3f5b; margin-bottom:20px;
-    }
-    .love-message {
-      font-size:1.4rem; color:#572c38; line-height:1.8; margin:20px 0;
-      font-style:italic; text-align:left; padding:0 15px;
-    }
-    .love-message p { margin-bottom:20px; }
-    .love-signature {
-      font-family:'Dancing Script',cursive; font-size:2.8rem; color:#c57c48;
-      border-top:3px solid #eebb88; padding-top:25px; display:inline-block; margin-top:15px;
-    }
-    .hearts-row {
-      font-size:2.5rem; color:#e68aab; margin-top:25px; letter-spacing:12px;
-    }
-    /* State terbuka */
-    .card.open .envelope { display:none; }
-    .card.open .gallery { display:block; }
-    @media (max-width:800px) {
-      .photo-grid { grid-template-columns:repeat(2,1fr); gap:15px; }
-      .gallery-title { font-size:3rem; }
-    }
-    @media (max-width:500px) {
-      .photo-grid { grid-template-columns:1fr; max-width:320px; margin-left:auto; margin-right:auto; }
-      .envelope-icon { font-size:130px; }
-      .click-text { font-size:2.2rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Cia</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffb6c1;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            max-width: 600px;
+            width: 90%;
+            background: white;
+            border-radius: 30px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border: 5px solid #fff0f5;
+        }
+        .envelope {
+            background: #fcc;
+            padding: 40px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            border: 3px solid #ff99aa;
+            box-shadow: 0 8px 0 #d45f7a;
+            margin: 20px 0;
+        }
+        .envelope h1 {
+            font-size: 2.5rem;
+            color: #ad3f5c;
+            margin-bottom: 10px;
+        }
+        .envelope p {
+            font-size: 1.5rem;
+            color: #802d48;
+        }
+        .gallery {
+            display: none;
+        }
+        .open .envelope {
+            display: none;
+        }
+        .open .gallery {
+            display: block;
+        }
+        .gallery h2 {
+            font-size: 2.5rem;
+            color: #802d48;
+            margin-bottom: 10px;
+        }
+        .gallery .sub {
+            background: #fce4ec;
+            padding: 10px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        .foto-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .foto-item {
+            width: 120px;
+            background: #fff0f5;
+            padding: 10px 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 5px 0 #ca9b7a;
+            border: 2px solid #ffe5c4;
+        }
+        .foto-item img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 3px solid #fcd7b0;
+        }
+        .foto-item .caption {
+            margin-top: 8px;
+            font-weight: bold;
+            color: #7a3a4a;
+        }
+        .pesan {
+            background: #fff0f5;
+            border-radius: 40px;
+            padding: 30px 20px;
+            border: 3px solid white;
+            box-shadow: 0 5px 0 #b3866b;
+            margin-top: 20px;
+            text-align: left;
+        }
+        .pesan .greeting {
+            font-size: 2rem;
+            color: #9e3f5b;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .pesan p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #572c38;
+        }
+        .pesan .signature {
+            font-size: 1.8rem;
+            color: #c57c48;
+            text-align: center;
+            border-top: 2px solid #eebb88;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        .hearts {
+            text-align: center;
+            font-size: 2rem;
+            color: #e68aab;
+            margin-top: 15px;
+        }
+    </style>
 </head>
 <body>
-  <div class="floating-hearts" id="heartBackground"></div>
-
-  <div class="card" id="card">
-    <!-- AMPLOP (dengan onclick langsung) -->
-    <div class="envelope" id="envelope" onclick="bukaSurat()">
-      <i class="fas fa-envelope-open-text envelope-icon"></i>
-      <div class="click-text">💖 Surat Untuk Cia 💖</div>
-    </div>
-
-    <!-- GALERI (konten Anda) -->
-    <div class="gallery" id="gallery">
-      <h2 class="gallery-title">Untuk Cia</h2>
-      <div class="gallery-sub">8 Foto Ini Cukup, Untuk Siapapun. Memanggilmu Seorang Putri,Dewi,Bahkan Ratu</div>
-
-      <div class="photo-grid">
-        <div class="photo-frame" style="--rot:-1deg"><img src="images/cia.png" alt="Foto 1"><div class="photo-caption">Bintang</div></div>
-        <div class="photo-frame" style="--rot:1deg"><img src="images/cia2.png" alt="Foto 2"><div class="photo-caption">Bulan</div></div>
-        <div class="photo-frame" style="--rot:-0.5deg"><img src="images/cia3.png" alt="Foto 3"><div class="photo-caption">Langit</div></div>
-        <div class="photo-frame" style="--rot:1.5deg"><img src="images/cia4.png" alt="Foto 4"><div class="photo-caption">Semesta</div></div>
-        <div class="photo-frame" style="--rot:-1.2deg"><img src="images/cia5.png" alt="Foto 5"><div class="photo-caption">Dunia</div></div>
-        <div class="photo-frame" style="--rot:0.8deg"><img src="images/cia6.png" alt="Foto 6"><div class="photo-caption">Matahari</div></div>
-        <div class="photo-frame" style="--rot:-1.8deg"><img src="images/cia7.png" alt="Foto 7"><div class="photo-caption">Cahaya</div></div>
-        <div class="photo-frame" style="--rot:1deg"><img src="images/cia8.png" alt="Foto 8"><div class="photo-caption">Selamanya</div></div>
-      </div>
-
-      <div class="love-letter">
-        <div class="love-greeting">My Valentine,</div>
-        <div class="love-message">
-          <p>Hari ini banyak orang merayakan cinta. Aku tidak tahu apakah aku berhak menyebut perasaan ini cinta, tapi yang jelas, aku menghargai keberadaanmu.</p>
-          <p>Mungkin kamu tidak mengenalku. Mungkin aku hanya seseorang yang pernah melihatmu sekilas, atau memperhatikanmu tanpa kamu sadari.</p>
-          <p>Aku tidak ingin terdengar berlebihan. Aku hanya ingin jujur — ada rasa kagum yang tumbuh pelan, tanpa paksaan, tanpa tuntutan. Aku tidak berharap balasan, tidak juga ingin mengganggu duniamu.</p>
-          <p>Aku hanya ingin mengatakan bahwa kamu pernah menjadi alasan seseorang tersenyum diam-diam, merasa hangat tanpa sebab yang jelas.</p>
-          <p>Jika suatu hari kita benar-benar saling mengenal, itu akan menjadi hal yang baik. Jika tidak, setidaknya hari ini aku pernah berani jujur pada perasaanku sendiri.</p>
+    <div class="card" id="card">
+        <!-- AMPLOP -->
+        <div class="envelope" id="envelope" onclick="document.getElementById('card').classList.add('open')">
+            <h1>💖 Surat Untuk Cia 💖</h1>
+            <p>Klik di sini</p>
         </div>
-        <div class="love-signature">Selamat Hari Valentine Ya</div>
-        <div class="hearts-row"><i class="fas fa-heart"></i><i class="fas fa-heart"></i><i class="fas fa-heart"></i><i class="fas fa-heart"></i><i class="fas fa-heart"></i><i class="fas fa-heart"></i><i class="fas fa-heart"></i><i class="fas fa-heart"></i></div>
-      </div>
+
+        <!-- GALERI FOTO & PESAN -->
+        <div class="gallery" id="gallery">
+            <h2>Untuk Cia</h2>
+            <div class="sub">8 Foto Ini Cukup, Untuk Siapapun. Memanggilmu Seorang Putri, Dewi, Bahkan Ratu</div>
+
+            <div class="foto-container">
+                <!-- GANTI PATH FOTO INI DENGAN FOTO ASLI ANDA -->
+                <div class="foto-item"><img src="images/cia.png" alt="Foto 1"><div class="caption">Bintang</div></div>
+                <div class="foto-item"><img src="images/cia2.png" alt="Foto 2"><div class="caption">Bulan</div></div>
+                <div class="foto-item"><img src="images/cia3.png" alt="Foto 3"><div class="caption">Langit</div></div>
+                <div class="foto-item"><img src="images/cia4.png" alt="Foto 4"><div class="caption">Semesta</div></div>
+                <div class="foto-item"><img src="images/cia5.png" alt="Foto 5"><div class="caption">Dunia</div></div>
+                <div class="foto-item"><img src="images/cia6.png" alt="Foto 6"><div class="caption">Matahari</div></div>
+                <div class="foto-item"><img src="images/cia7.png" alt="Foto 7"><div class="caption">Cahaya</div></div>
+                <div class="foto-item"><img src="images/cia8.png" alt="Foto 8"><div class="caption">Selamanya</div></div>
+            </div>
+
+            <div class="pesan">
+                <div class="greeting">My Valentine,</div>
+                <p>Hari ini banyak orang merayakan cinta. Aku tidak tahu apakah aku berhak menyebut perasaan ini cinta, tapi yang jelas, aku menghargai keberadaanmu.</p>
+                <p>Mungkin kamu tidak mengenalku. Mungkin aku hanya seseorang yang pernah melihatmu sekilas, atau memperhatikanmu tanpa kamu sadari.</p>
+                <p>Aku tidak ingin terdengar berlebihan. Aku hanya ingin jujur — ada rasa kagum yang tumbuh pelan, tanpa paksaan, tanpa tuntutan. Aku tidak berharap balasan, tidak juga ingin mengganggu duniamu.</p>
+                <p>Aku hanya ingin mengatakan bahwa kamu pernah menjadi alasan seseorang tersenyum diam-diam, merasa hangat tanpa sebab yang jelas.</p>
+                <p>Jika suatu hari kita benar-benar saling mengenal, itu akan menjadi hal yang baik. Jika tidak, setidaknya hari ini aku pernah berani jujur pada perasaanku sendiri.</p>
+                <div class="signature">Selamat Hari Valentine Ya</div>
+                <div class="hearts">❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️</div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <script>
-    (function() {
-      // Hati berjatuhan
-      const heartContainer = document.getElementById('heartBackground');
-      if (heartContainer) {
-        for (let i = 0; i < 60; i++) {
-          const heart = document.createElement('i');
-          heart.className = 'fas fa-heart heart';
-          const size = 14 + Math.floor(Math.random() * 30);
-          heart.style.fontSize = size + 'px';
-          heart.style.left = Math.random() * 100 + '%';
-          heart.style.animationDuration = (8 + Math.random() * 12) + 's';
-          heart.style.animationDelay = (Math.random() * 8) + 's';
-          heart.style.color = `rgba(255, ${100 + Math.floor(Math.random() * 100)}, 150, 0.35)`;
-          heartContainer.appendChild(heart);
-        }
-      }
-
-      // Fungsi buka surat
-      window.bukaSurat = function() {
-        var card = document.getElementById('card');
-        if (card && !card.classList.contains('open')) {
-          card.classList.add('open');
-        }
-      };
-
-      // Fallback manual (untuk jaga-jaga)
-      var envelope = document.getElementById('envelope');
-      if (envelope) {
-        envelope.addEventListener('click', function(e) {
-          e.preventDefault();
-          window.bukaSurat();
-        });
-        envelope.addEventListener('touchstart', function(e) {
-          e.preventDefault();
-          window.bukaSurat();
-        }, { passive: false });
-      }
-    })();
-  </script>
-
-  <!-- Pesan path gambar (bisa dihapus) -->
-  <div style="position:fixed; bottom:5px; left:0; right:0; text-align:center; background:rgba(255,255,255,0.7); padding:5px; font-size:12px; color:#c00; z-index:999;">
-    Pastikan file foto (cia.png, cia2.png, ...) ada di folder "images". Jika belum, ganti src di HTML.
-  </div>
+    <script>
+        // Fallback untuk mobile
+        (function() {
+            var envelope = document.getElementById('envelope');
+            var card = document.getElementById('card');
+            
+            function buka() {
+                card.classList.add('open');
+            }
+            
+            envelope.addEventListener('click', buka);
+            envelope.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                buka();
+            }, { passive: false });
+        })();
+    </script>
 </body>
 </html>
