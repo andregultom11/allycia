@@ -2,45 +2,193 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine - Tes Klik</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Happy Valentine · Surat & 8 Foto</title>
     <style>
-        body { margin: 0; padding: 0; background: pink; font-family: Arial; }
-        .card { max-width: 500px; margin: 20px auto; background: white; border-radius: 20px; padding: 20px; text-align: center; }
-        .envelope { background: #fcc; padding: 40px; border-radius: 20px; cursor: pointer; border: 2px solid red; }
-        .gallery { display: none; }
-        .open .envelope { display: none; }
-        .open .gallery { display: block; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffd9e6;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(255,255,255,0.9);
+            border-radius: 40px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        /* Amplop */
+        .amplop {
+            background: #ffb6c1;
+            border-radius: 30px;
+            padding: 60px 20px;
+            text-align: center;
+            cursor: pointer;
+            border: 5px solid white;
+            box-shadow: 0 10px 0 #d45f7a;
+            margin: 20px;
+        }
+        .amplop h1 {
+            font-size: 3rem;
+            color: #ad3f5c;
+            text-shadow: 2px 2px 0 white;
+            margin-bottom: 20px;
+        }
+        .amplop p {
+            font-size: 2rem;
+            color: #802d48;
+        }
+        /* Galeri (awalnya disembunyikan) */
+        .galeri {
+            display: none;
+            text-align: center;
+        }
+        .galeri h2 {
+            font-size: 3rem;
+            color: #802d48;
+            margin-bottom: 10px;
+        }
+        .galeri .sub {
+            font-size: 1.2rem;
+            background: #fce4ec;
+            padding: 10px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        .grid-foto {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .foto-item {
+            background: white;
+            padding: 10px 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 0 #ca9b7a;
+            border: 3px solid #ffe5c4;
+        }
+        .foto-item img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 4px solid #fcd7b0;
+        }
+        .caption {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #7a3a4a;
+        }
+        .pesan {
+            background: #fff0f0;
+            border-radius: 40px;
+            padding: 30px;
+            border: 5px solid white;
+            box-shadow: 0 8px 0 #b3866b;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .pesan .greeting {
+            font-size: 2.5rem;
+            color: #9e3f5b;
+            margin-bottom: 20px;
+        }
+        .pesan p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: left;
+            color: #572c38;
+        }
+        .pesan .signature {
+            font-size: 2rem;
+            color: #c57c48;
+            border-top: 3px solid #eebb88;
+            padding-top: 20px;
+        }
+        /* State terbuka */
+        .open .amplop {
+            display: none;
+        }
+        .open .galeri {
+            display: block;
+        }
+        @media (max-width: 700px) {
+            .grid-foto { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 500px) {
+            .grid-foto { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-    <div class="card" id="card">
-        <div class="envelope" id="envelope" onclick="document.getElementById('card').classList.add('open')">
+    <div class="container" id="cardUtama">
+        <!-- AMPLOP -->
+        <div class="amplop" id="amplopKlik">
             <h1>💖 Surat Untuk Cia 💖</h1>
             <p>Klik di sini</p>
         </div>
-        <div class="gallery">
+
+        <!-- GALERI (konten asli Anda) -->
+        <div class="galeri" id="galeriKonten">
             <h2>Untuk Cia</h2>
-            <img src="images/cia.png" width="100"><br>
-            <img src="images/cia2.png" width="100"><br>
-            <img src="images/cia3.png" width="100"><br>
-            <img src="images/cia4.png" width="100"><br>
-            <img src="images/cia5.png" width="100"><br>
-            <img src="images/cia6.png" width="100"><br>
-            <img src="images/cia7.png" width="100"><br>
-            <img src="images/cia8.png" width="100"><br>
-            <p>Hari ini banyak orang merayakan cinta...</p>
+            <div class="sub">8 Foto Ini Cukup, Untuk Siapapun. Memanggilmu Seorang Putri,Dewi,Bahkan Ratu</div>
+
+            <div class="grid-foto">
+                <div class="foto-item"><img src="images/cia.png" alt="Foto 1"><div class="caption">Bintang</div></div>
+                <div class="foto-item"><img src="images/cia2.png" alt="Foto 2"><div class="caption">Bulan</div></div>
+                <div class="foto-item"><img src="images/cia3.png" alt="Foto 3"><div class="caption">Langit</div></div>
+                <div class="foto-item"><img src="images/cia4.png" alt="Foto 4"><div class="caption">Semesta</div></div>
+                <div class="foto-item"><img src="images/cia5.png" alt="Foto 5"><div class="caption">Dunia</div></div>
+                <div class="foto-item"><img src="images/cia6.png" alt="Foto 6"><div class="caption">Matahari</div></div>
+                <div class="foto-item"><img src="images/cia7.png" alt="Foto 7"><div class="caption">Cahaya</div></div>
+                <div class="foto-item"><img src="images/cia8.png" alt="Foto 8"><div class="caption">Selamanya</div></div>
+            </div>
+
+            <div class="pesan">
+                <div class="greeting">My Valentine,</div>
+                <p>Hari ini banyak orang merayakan cinta. Aku tidak tahu apakah aku berhak menyebut perasaan ini cinta, tapi yang jelas, aku menghargai keberadaanmu.</p>
+                <p>Mungkin kamu tidak mengenalku. Mungkin aku hanya seseorang yang pernah melihatmu sekilas, atau memperhatikanmu tanpa kamu sadari.</p>
+                <p>Aku tidak ingin terdengar berlebihan. Aku hanya ingin jujur — ada rasa kagum yang tumbuh pelan, tanpa paksaan, tanpa tuntutan. Aku tidak berharap balasan, tidak juga ingin mengganggu duniamu.</p>
+                <p>Aku hanya ingin mengatakan bahwa kamu pernah menjadi alasan seseorang tersenyum diam-diam, merasa hangat tanpa sebab yang jelas.</p>
+                <p>Jika suatu hari kita benar-benar saling mengenal, itu akan menjadi hal yang baik. Jika tidak, setidaknya hari ini aku pernah berani jujur pada perasaanku sendiri.</p>
+                <div class="signature">Selamat Hari Valentine Ya</div>
+            </div>
         </div>
     </div>
+
     <script>
-        // fallback manual
-        document.getElementById('envelope').addEventListener('click', function(e){
-            document.getElementById('card').classList.add('open');
-        });
-        document.getElementById('envelope').addEventListener('touchstart', function(e){
-            e.preventDefault();
-            document.getElementById('card').classList.add('open');
-        });
+        (function() {
+            var amplop = document.getElementById('amplopKlik');
+            var card = document.getElementById('cardUtama');
+
+            function buka() {
+                card.classList.add('open');
+            }
+
+            // Paksa pakai berbagai event
+            amplop.addEventListener('click', buka);
+            amplop.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                buka();
+            }, { passive: false });
+            amplop.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                buka();
+            }, { passive: false });
+        })();
     </script>
 </body>
 </html>
