@@ -37,11 +37,13 @@
       box-shadow:0 20px 40px rgba(190,70,100,0.4), 0 0 0 5px #fff2f5, 0 0 0 12px rgba(255,200,200,0.5);
       border:2px solid #ffe2ec;
     }
-    /* AMPLOP */
-    .envelope-section {
+    /* AMPLOP menggunakan button */
+    .envelope-button {
       display:flex; flex-direction:column; align-items:center; justify-content:center;
-      min-height:500px; cursor:pointer; -webkit-tap-highlight-color:transparent;
-      width:100%;
+      min-height:500px; width:100%;
+      background:none; border:none; cursor:pointer;
+      -webkit-tap-highlight-color:rgba(255,105,180,0.3);
+      outline:none;
     }
     .envelope-icon {
       font-size:180px; color:#d45f7a; filter:drop-shadow(12px 18px 0 #b04b62);
@@ -122,7 +124,7 @@
     .hearts-row {
       font-size:2.5rem; color:#e68aab; margin-top:25px; letter-spacing:12px;
     }
-    .valentine-card.open .envelope-section { display:none; }
+    .valentine-card.open .envelope-button { display:none; }
     .valentine-card.open .gallery-section { display:block; }
     @media (max-width:800px) {
       .photo-grid { grid-template-columns:repeat(2,1fr); gap:15px; }
@@ -139,11 +141,11 @@
   <div class="floating-hearts" id="heartBackground"></div>
 
   <div class="valentine-card" id="valentineCard">
-    <!-- AMPLOP dengan onclick langsung -->
-    <div class="envelope-section" id="envelopeSection" onclick="bukaSurat()">
+    <!-- AMPLOP: menggunakan button -->
+    <button class="envelope-button" id="envelopeButton" onclick="bukaSurat()">
       <i class="fas fa-envelope-open-text envelope-icon"></i>
       <div class="click-text">💖 Surat Untuk Cia 💖</div>
-    </div>
+    </button>
 
     <!-- GALERI (konten Anda) -->
     <div class="gallery-section" id="gallerySection">
@@ -201,10 +203,23 @@
           card.classList.add('open');
         }
       };
+
+      // Backup tambahan: event listener manual (untuk jaga-jaga jika onclick bermasalah)
+      var btn = document.getElementById('envelopeButton');
+      if (btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          window.bukaSurat();
+        });
+        btn.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+          window.bukaSurat();
+        }, { passive: false });
+      }
     })();
   </script>
 
-  <!-- Pesan path gambar (bisa dihapus jika foto sudah benar) -->
+  <!-- Pesan path gambar (bisa dihapus) -->
   <div style="position:fixed; bottom:5px; left:0; right:0; text-align:center; background:rgba(255,255,255,0.7); padding:5px; font-size:12px; color:#c00; z-index:999;">
     Pastikan file foto (cia.png, cia2.png, ...) ada di folder "images". Jika belum, ganti src di HTML.
   </div>
