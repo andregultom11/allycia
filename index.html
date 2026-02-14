@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>Happy Valentine · Surat & 8 Foto Berjalan</title>
   <!-- Font & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,7 +28,7 @@
       overflow-x: hidden;
     }
 
-    /* --- Latar hati berterbangan --- */
+    /* Latar hati berterbangan */
     .floating-hearts {
       position: fixed;
       top: 0;
@@ -52,7 +52,7 @@
       100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
     }
 
-    /* --- Kartu utama --- */
+    /* Kartu utama */
     .valentine-card {
       position: relative;
       z-index: 20;
@@ -64,10 +64,9 @@
       padding: 40px 30px 50px;
       box-shadow: 0 20px 40px rgba(190, 70, 100, 0.4), 0 0 0 5px #fff2f5, 0 0 0 12px rgba(255, 200, 200, 0.5);
       border: 2px solid #ffe2ec;
-      transition: all 0.4s;
     }
 
-    /* --- AMPLOP (AWAL) --- */
+    /* AMPLOP (AWAL) */
     .envelope-section {
       display: flex;
       flex-direction: column;
@@ -77,16 +76,13 @@
       cursor: pointer;
       -webkit-tap-highlight-color: rgba(255, 105, 180, 0.3);
       touch-action: manipulation; /* Mencegah zoom saat tap */
-      user-select: none;
     }
 
     .envelope-icon {
       font-size: 180px;
       color: #d45f7a;
       filter: drop-shadow(12px 18px 0 #b04b62);
-      transition: transform 0.3s, filter 0.2s;
       animation: float 2.5s infinite ease-in-out;
-      pointer-events: none; /* Agar klik mengenai parent */
     }
 
     @keyframes float {
@@ -105,19 +101,11 @@
       border: 4px solid white;
       box-shadow: 0 12px 0 #c1647d;
       margin-top: 20px;
-      pointer-events: none;
     }
 
-    /* --- GALERI FOTO (SETELAH DIKLIK) --- */
+    /* GALERI FOTO (SETELAH DIKLIK) */
     .gallery-section {
       display: none;
-      opacity: 0;
-      animation: fadeReveal 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-    }
-
-    @keyframes fadeReveal {
-      0% { opacity: 0; transform: scale(0.95) translateY(30px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
     }
 
     .gallery-title {
@@ -141,7 +129,6 @@
       border: 3px solid #ffd5e2;
     }
 
-    /* grid foto 2 baris x 4 kolom */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -155,7 +142,6 @@
       border-radius: 20px 20px 12px 12px;
       box-shadow: 0 12px 0 #ca9b7a, 0 15px 20px rgba(130, 60, 30, 0.25);
       border: 3px solid #ffe5c4;
-      transition: all 0.3s;
       transform: rotate(var(--rot, 0deg));
       animation: walk 3s ease-in-out infinite alternate;
     }
@@ -249,6 +235,7 @@
       letter-spacing: 12px;
     }
 
+    /* State terbuka */
     .valentine-card.open .envelope-section {
       display: none;
     }
@@ -272,11 +259,13 @@
   <div class="floating-hearts" id="heartBackground"></div>
 
   <div class="valentine-card" id="valentineCard">
+    <!-- AMPLOP -->
     <div class="envelope-section" id="envelopeSection">
       <i class="fas fa-envelope-open-text envelope-icon"></i>
       <div class="click-text">💖 Surat Untuk Cia 💖</div>
     </div>
 
+    <!-- GALERI (konten Anda) -->
     <div class="gallery-section" id="gallerySection">
       <h2 class="gallery-title">Untuk Cia</h2>
       <div class="gallery-sub">8 Foto Ini Cukup, Untuk Siapapun. Memanggilmu Seorang Putri,Dewi,Bahkan Ratu</div>
@@ -325,24 +314,41 @@
         }
       }
 
-      // Interaksi amplop
+      // INTERAKSI AMPLOP - versi paling sederhana
       const envelope = document.getElementById('envelopeSection');
       const card = document.getElementById('valentineCard');
 
       if (envelope && card) {
-        function openCard(e) {
-          e.preventDefault(); // penting untuk mobile
+        // Fungsi untuk membuka amplop
+        function bukaSurat(e) {
+          // Mencegah event default dan bubbling
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          // Jika belum terbuka, tambahkan class open
           if (!card.classList.contains('open')) {
             card.classList.add('open');
-            envelope.style.pointerEvents = 'none';
           }
         }
 
-        // Pasang event untuk mouse dan touch
-        envelope.addEventListener('click', openCard);
-        envelope.addEventListener('touchstart', openCard, { passive: false });
+        // Daftarkan event untuk klik dan sentuh
+        envelope.addEventListener('click', bukaSurat);
+        envelope.addEventListener('touchstart', bukaSurat, { passive: false });
+        // Cadangan: untuk memastikan di HP yang sangat lambat
+        envelope.addEventListener('touchend', bukaSurat, { passive: false });
+      } else {
+        console.error('Elemen tidak ditemukan');
       }
+
+      // Jika foto tidak muncul, cek path gambar. Path saat ini: images/cia.png (sesuaikan dengan folder di GitHub)
+      // Pastikan folder images ada dan berisi file cia1.png, cia2.png, dst.
     })();
   </script>
+
+  <!-- Pesan bantuan untuk memastikan path gambar benar -->
+  <div style="position: fixed; bottom: 5px; left: 0; right: 0; text-align: center; background: rgba(255,255,255,0.7); padding: 5px; font-size: 12px; color: #c00; z-index: 999;">
+    Pastikan file foto (cia.png, cia2.png, ...) berada di folder "images" yang sama dengan file HTML. Jika belum, ganti atribut src dengan URL gambar yang benar.
+  </div>
 </body>
 </html>
